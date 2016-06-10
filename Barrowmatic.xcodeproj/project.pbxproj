@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		5DA1F6111D0AB7750086B0DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA1F6101D0AB7750086B0DF /* AppDelegate.swift */; };
 		5DA1F6141D0AB7750086B0DF /* Barrowmatic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5DA1F6121D0AB7750086B0DF /* Barrowmatic.xcdatamodeld */; };
-		5DA1F6161D0AB7750086B0DF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA1F6151D0AB7750086B0DF /* MasterViewController.swift */; };
-		5DA1F6181D0AB7750086B0DF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA1F6171D0AB7750086B0DF /* DetailViewController.swift */; };
+		5DA1F6161D0AB7750086B0DF /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA1F6151D0AB7750086B0DF /* OverviewViewController.swift */; };
+		5DA1F6181D0AB7750086B0DF /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA1F6171D0AB7750086B0DF /* ItemViewController.swift */; };
 		5DA1F61B1D0AB7750086B0DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DA1F6191D0AB7750086B0DF /* Main.storyboard */; };
 		5DA1F61D1D0AB7750086B0DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DA1F61C1D0AB7750086B0DF /* Assets.xcassets */; };
 		5DA1F6201D0AB7750086B0DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DA1F61E1D0AB7750086B0DF /* LaunchScreen.storyboard */; };
@@ -21,8 +21,8 @@
 		5DA1F60D1D0AB7750086B0DF /* Barrowmatic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Barrowmatic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DA1F6101D0AB7750086B0DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DA1F6131D0AB7750086B0DF /* Barrowmatic.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Barrowmatic.xcdatamodel; sourceTree = "<group>"; };
-		5DA1F6151D0AB7750086B0DF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		5DA1F6171D0AB7750086B0DF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		5DA1F6151D0AB7750086B0DF /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
+		5DA1F6171D0AB7750086B0DF /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		5DA1F61A1D0AB7750086B0DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5DA1F61C1D0AB7750086B0DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5DA1F61F1D0AB7750086B0DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -64,14 +64,10 @@
 				5DA1F6291D0ABE220086B0DF /* Controller */,
 				5DA1F6281D0ABE1E0086B0DF /* View */,
 				5DA1F6271D0ABE180086B0DF /* Model */,
+				5DA1F62D1D0AC14E0086B0DF /* CoreData */,
 				5DA1F6101D0AB7750086B0DF /* AppDelegate.swift */,
-				5DA1F6151D0AB7750086B0DF /* MasterViewController.swift */,
-				5DA1F6171D0AB7750086B0DF /* DetailViewController.swift */,
-				5DA1F6191D0AB7750086B0DF /* Main.storyboard */,
 				5DA1F61C1D0AB7750086B0DF /* Assets.xcassets */,
-				5DA1F61E1D0AB7750086B0DF /* LaunchScreen.storyboard */,
 				5DA1F6211D0AB7750086B0DF /* Info.plist */,
-				5DA1F6121D0AB7750086B0DF /* Barrowmatic.xcdatamodeld */,
 			);
 			path = Barrowmatic;
 			sourceTree = "<group>";
@@ -86,6 +82,8 @@
 		5DA1F6281D0ABE1E0086B0DF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5DA1F6191D0AB7750086B0DF /* Main.storyboard */,
+				5DA1F61E1D0AB7750086B0DF /* LaunchScreen.storyboard */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -93,6 +91,8 @@
 		5DA1F6291D0ABE220086B0DF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5DA1F6171D0AB7750086B0DF /* ItemViewController.swift */,
+				5DA1F6151D0AB7750086B0DF /* OverviewViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -103,6 +103,14 @@
 				5DA1F62B1D0ABE3C0086B0DF /* CoreDataHelper.swift */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		5DA1F62D1D0AC14E0086B0DF /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				5DA1F6121D0AB7750086B0DF /* Barrowmatic.xcdatamodeld */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,8 +188,8 @@
 				5DA1F62C1D0ABE3C0086B0DF /* CoreDataHelper.swift in Sources */,
 				5DA1F6111D0AB7750086B0DF /* AppDelegate.swift in Sources */,
 				5DA1F6141D0AB7750086B0DF /* Barrowmatic.xcdatamodeld in Sources */,
-				5DA1F6161D0AB7750086B0DF /* MasterViewController.swift in Sources */,
-				5DA1F6181D0AB7750086B0DF /* DetailViewController.swift in Sources */,
+				5DA1F6161D0AB7750086B0DF /* OverviewViewController.swift in Sources */,
+				5DA1F6181D0AB7750086B0DF /* ItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

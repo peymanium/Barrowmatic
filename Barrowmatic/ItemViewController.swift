@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  ItemViewController.swift
 //  Barrowmatic
 //
 //  Created by Peyman Attarzadeh on 6/10/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class ItemViewController: UITableViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
