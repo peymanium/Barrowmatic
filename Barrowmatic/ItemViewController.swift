@@ -40,6 +40,11 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
             {
                 self.TXT_Title.text = title
             }
+            
+            if let itemImageData = detail.image
+            {
+                self.IMG_Item.image = UIImage(data: itemImageData)
+            }
         }
     }
 
@@ -66,6 +71,19 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
             let newItem = CoreDataHelper.InsertManagedObject(NSStringFromClass(BarrowItem), managedObjectContext: self.managedObjectContext) as! BarrowItem
             
             newItem.title = self.TXT_Title.text
+            
+            //Image for Item
+            if let itemImage = self.IMG_Item.image
+            {
+                newItem.image = UIImageJPEGRepresentation(itemImage, 0.3)
+            }
+            
+            
+            //Image for Person
+            if let personImage = self.IMG_Person.image
+            {
+                
+            }
             
         }
         else

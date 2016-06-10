@@ -72,8 +72,7 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         let barrowItem = self.fetchedResultsController.objectAtIndexPath(indexPath) as! BarrowItem
         
-        cell.textLabel?.text = barrowItem.title
-        //self.configureCell(cell, withObject: object)
+        self.configureCell(cell, withObject: barrowItem)
         return cell
     }
 
@@ -101,9 +100,14 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
     }
 
     
-    func configureCell(cell: UITableViewCell, withObject object: NSManagedObject)
+    func configureCell(cell: UITableViewCell, withObject object: BarrowItem)
     {
-        cell.textLabel!.text = object.valueForKey("timeStamp")!.description
+        cell.textLabel?.text = object.title
+        
+        if let itemImageData = object.image
+        {
+            cell.imageView?.image = UIImage(data: itemImageData)
+        }
     }
 
     
@@ -176,7 +180,7 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
         case .Delete:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
         case .Update:
-            self.configureCell(tableView.cellForRowAtIndexPath(indexPath!)!, withObject: anObject as! NSManagedObject)
+            self.configureCell(tableView.cellForRowAtIndexPath(indexPath!)!, withObject: anObject as! BarrowItem)
         case .Move:
             tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
         }
