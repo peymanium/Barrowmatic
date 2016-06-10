@@ -52,19 +52,20 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        //return self.fetchedResultsController.sections?.count ?? 0
-        return 1
+        return self.fetchedResultsController.sections?.count ?? 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //let sectionInfo = self.fetchedResultsController.sections![section]
-        //return sectionInfo.numberOfObjects
-        return 10
+        let sectionInfo = self.fetchedResultsController.sections![section]
+        return sectionInfo.numberOfObjects
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        //let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
+        let barrowItem = self.fetchedResultsController.objectAtIndexPath(indexPath) as! BarrowItem
+        
+        cell.textLabel?.text = barrowItem.title
         //self.configureCell(cell, withObject: object)
         return cell
     }
@@ -96,7 +97,7 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
 
     // MARK: - Fetched results controller
 
-    /*
+    
     var fetchedResultsController: NSFetchedResultsController {
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
@@ -104,14 +105,14 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
         
         let fetchRequest = NSFetchRequest()
         // Edit the entity name as appropriate.
-        let entity = NSEntityDescription.entityForName("Event", inManagedObjectContext: self.managedObjectContext!)
+        let entity = NSEntityDescription.entityForName("BarrowItem", inManagedObjectContext: self.managedObjectContext!)
         fetchRequest.entity = entity
         
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
         
         // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "timeStamp", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "endDate", ascending: true)
         
         fetchRequest.sortDescriptors = [sortDescriptor]
         
@@ -119,25 +120,30 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
         // nil for section name key path means "no sections".
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "Master")
         aFetchedResultsController.delegate = self
+        
         _fetchedResultsController = aFetchedResultsController
         
-        do {
+        do
+        {
             try _fetchedResultsController!.performFetch()
-        } catch {
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-             //print("Unresolved error \(error), \(error.userInfo)")
-             abort()
+            
+        }
+        catch
+        {
+             print (error)
         }
         
         return _fetchedResultsController!
     }    
     var _fetchedResultsController: NSFetchedResultsController? = nil
 
+    
+    
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.tableView.beginUpdates()
     }
 
+    
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
         switch type {
             case .Insert:
@@ -165,7 +171,7 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView.endUpdates()
     }
-    */
+    
 
     /*
      // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
