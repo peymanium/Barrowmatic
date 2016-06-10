@@ -15,47 +15,54 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
     var managedObjectContext: NSManagedObjectContext? = nil
 
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
-        
-        if let split = self.splitViewController {
+        if let split = self.splitViewController
+        {
             let controllers = split.viewControllers
             self.itemViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ItemViewController
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool)
+    {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     // MARK: - Segues
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
         if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-            //let object = self.fetchedResultsController.objectAtIndexPath(indexPath)
+            if let indexPath = self.tableView.indexPathForSelectedRow
+            {
+                
+                let object = self.fetchedResultsController.objectAtIndexPath(indexPath)
+                
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! ItemViewController
-                //controller.detailItem = object as! BarrowItem
+                
+                controller.detailItem = object as? BarrowItem
+                
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
     }
+    
+    
 
     // MARK: - Table View
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
         return self.fetchedResultsController.sections?.count ?? 0
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         let sectionInfo = self.fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
@@ -70,12 +77,14 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
         return cell
     }
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
         // Return false if you do not want the specified item to be editable.
         return true
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+    {
         /*if editingStyle == .Delete {
             let context = self.fetchedResultsController.managedObjectContext
             context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject)
@@ -91,22 +100,21 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
         }*/
     }
 
-    func configureCell(cell: UITableViewCell, withObject object: NSManagedObject) {
+    
+    func configureCell(cell: UITableViewCell, withObject object: NSManagedObject)
+    {
         cell.textLabel!.text = object.valueForKey("timeStamp")!.description
     }
 
-    // MARK: - Fetched results controller
-
     
-    var fetchedResultsController: NSFetchedResultsController {
+    // MARK: - Fetched results controller
+    var fetchedResultsController: NSFetchedResultsController
+    {
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
         }
         
-        let fetchRequest = NSFetchRequest()
-        // Edit the entity name as appropriate.
-        let entity = NSEntityDescription.entityForName("BarrowItem", inManagedObjectContext: self.managedObjectContext!)
-        fetchRequest.entity = entity
+        let fetchRequest = NSFetchRequest(entityName: "BarrowItem")
         
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
@@ -139,12 +147,15 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
 
     
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController)
+    {
         self.tableView.beginUpdates()
     }
 
     
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
+    {
         switch type {
             case .Insert:
                 self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
@@ -155,20 +166,24 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
         }
     }
 
+    
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-            case .Insert:
-                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-            case .Delete:
-                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            case .Update:
-                self.configureCell(tableView.cellForRowAtIndexPath(indexPath!)!, withObject: anObject as! NSManagedObject)
-            case .Move:
-                tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
+        
+        switch type
+        {
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        case .Update:
+            self.configureCell(tableView.cellForRowAtIndexPath(indexPath!)!, withObject: anObject as! NSManagedObject)
+        case .Move:
+            tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
         }
     }
 
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    {
         self.tableView.endUpdates()
     }
     

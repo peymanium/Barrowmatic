@@ -154,8 +154,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="126.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="a2t-7U-i3D">
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="a2t-7U-i3D">
                                                     <rect key="frame" x="8" y="3" width="120" height="120"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="kVC-Xo-Rwa"/>
                                                         <constraint firstAttribute="height" constant="120" id="pLa-Ap-dAm"/>
@@ -203,8 +204,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="126.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="uoJ-Oa-Xht">
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="uoJ-Oa-Xht">
                                                     <rect key="frame" x="8" y="3" width="120" height="120"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="120" id="hVd-pw-Ib3"/>
                                                         <constraint firstAttribute="width" constant="120" id="z81-Of-bih"/>
