@@ -89,7 +89,11 @@
                                 <segment title="Sort by person"/>
                             </segments>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Eng-Ec-jel"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Eng-Ec-jel">
+                            <connections>
+                                <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="addItem" id="bbx-XO-LOA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
@@ -109,7 +113,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-45" y="129"/>
+            <point key="canvasLocation" x="-38" y="339"/>
         </scene>
         <!--Item View Controller-->
         <scene sceneID="ZsF-ij-FX6">
@@ -199,11 +203,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="126.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Steve Jobs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dRs-ln-ynY">
-                                                    <rect key="frame" x="136" y="41" width="456" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
                                                 <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="uoJ-Oa-Xht">
                                                     <rect key="frame" x="8" y="3" width="120" height="120"/>
                                                     <constraints>
@@ -211,6 +210,11 @@
                                                         <constraint firstAttribute="width" constant="120" id="z81-Of-bih"/>
                                                     </constraints>
                                                 </imageView>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Steve Jobs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dRs-ln-ynY">
+                                                    <rect key="frame" x="136" y="41" width="456" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="dRs-ln-ynY" secondAttribute="trailing" constant="8" id="Dvt-Vh-NTn"/>
@@ -231,18 +235,31 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="091-DB-6K5">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="cBH-rG-Dvo"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="cBH-rG-Dvo">
+                            <connections>
+                                <action selector="BTN_Save_Tapped:" destination="Lhn-d9-6Ov" id="kye-w2-PbQ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="BTN_Timeframe" destination="BAW-jG-lEe" id="1mJ-t8-c38"/>
+                        <outlet property="IMG_Item" destination="a2t-7U-i3D" id="m1a-qj-mCX"/>
+                        <outlet property="IMG_Person" destination="uoJ-Oa-Xht" id="UsH-4y-qmb"/>
+                        <outlet property="LBL_BarrowAt" destination="f6b-Xp-b9f" id="gNm-zU-IrF"/>
+                        <outlet property="LBL_ReturnAt" destination="cmY-fb-7Y9" id="8NI-LL-i97"/>
+                        <outlet property="TXT_Person" destination="dRs-ln-ynY" id="dKT-tJ-j1M"/>
+                        <outlet property="TXT_Title" destination="dRv-iw-dgL" id="2hW-JB-ufQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="icb-52-6Rj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709" y="129"/>
+            <point key="canvasLocation" x="709" y="339"/>
         </scene>
     </scenes>
     <resources>
         <image name="image" width="700" height="596"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="bbx-XO-LOA"/>
     </inferredMetricsTieBreakers>
 </document>

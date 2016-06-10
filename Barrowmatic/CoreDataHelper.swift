@@ -12,17 +12,18 @@ import CoreData
 
 class CoreDataHelper
 {
-    static let helper = CoreDataHelper()
+    //static let helper = CoreDataHelper()
+    //Use class keyword in front of the func name to use it as a sigleton
     
     
-    func ManagedObjectContext() -> NSManagedObjectContext
+    class func ManagedObjectContext() -> NSManagedObjectContext
     {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         return appDelegate.managedObjectContext
     }
     
     
-    func InsertManagedObject (className : NSString, managedObjectContext : NSManagedObjectContext) -> AnyObject
+    class func InsertManagedObject (className : NSString, managedObjectContext : NSManagedObjectContext) -> AnyObject
     {
         let managedObject = NSEntityDescription.insertNewObjectForEntityForName(className as String, inManagedObjectContext: managedObjectContext)
         
@@ -30,7 +31,7 @@ class CoreDataHelper
     }
     
     
-    func FetchEntities(className : NSString, managedObjectContext : NSManagedObjectContext, predicate : NSPredicate?, sortDescriptor : NSSortDescriptor?) -> NSArray //[AnyObject]
+    class func FetchEntities(className : NSString, managedObjectContext : NSManagedObjectContext, predicate : NSPredicate?, sortDescriptor : NSSortDescriptor?) -> NSArray //[AnyObject]
     {
         let fetchRequest = NSFetchRequest(entityName: className as String)
         
@@ -61,7 +62,7 @@ class CoreDataHelper
     }
     
     
-    func SaveManagedObjectContext(managedObjectContext : NSManagedObjectContext)
+    class func SaveManagedObjectContext(managedObjectContext : NSManagedObjectContext)
     {
         
         do
