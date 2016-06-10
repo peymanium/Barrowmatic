@@ -14,6 +14,7 @@
 		5DA1F61B1D0AB7750086B0DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DA1F6191D0AB7750086B0DF /* Main.storyboard */; };
 		5DA1F61D1D0AB7750086B0DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DA1F61C1D0AB7750086B0DF /* Assets.xcassets */; };
 		5DA1F6201D0AB7750086B0DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DA1F61E1D0AB7750086B0DF /* LaunchScreen.storyboard */; };
+		5DA1F62C1D0ABE3C0086B0DF /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA1F62B1D0ABE3C0086B0DF /* CoreDataHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		5DA1F61C1D0AB7750086B0DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5DA1F61F1D0AB7750086B0DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5DA1F6211D0AB7750086B0DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5DA1F62B1D0ABE3C0086B0DF /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,10 @@
 		5DA1F60F1D0AB7750086B0DF /* Barrowmatic */ = {
 			isa = PBXGroup;
 			children = (
+				5DA1F62A1D0ABE270086B0DF /* Utilities */,
+				5DA1F6291D0ABE220086B0DF /* Controller */,
+				5DA1F6281D0ABE1E0086B0DF /* View */,
+				5DA1F6271D0ABE180086B0DF /* Model */,
 				5DA1F6101D0AB7750086B0DF /* AppDelegate.swift */,
 				5DA1F6151D0AB7750086B0DF /* MasterViewController.swift */,
 				5DA1F6171D0AB7750086B0DF /* DetailViewController.swift */,
@@ -68,6 +74,35 @@
 				5DA1F6121D0AB7750086B0DF /* Barrowmatic.xcdatamodeld */,
 			);
 			path = Barrowmatic;
+			sourceTree = "<group>";
+		};
+		5DA1F6271D0ABE180086B0DF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		5DA1F6281D0ABE1E0086B0DF /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		5DA1F6291D0ABE220086B0DF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		5DA1F62A1D0ABE270086B0DF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5DA1F62B1D0ABE3C0086B0DF /* CoreDataHelper.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DA1F62C1D0ABE3C0086B0DF /* CoreDataHelper.swift in Sources */,
 				5DA1F6111D0AB7750086B0DF /* AppDelegate.swift in Sources */,
 				5DA1F6141D0AB7750086B0DF /* Barrowmatic.xcdatamodeld in Sources */,
 				5DA1F6161D0AB7750086B0DF /* MasterViewController.swift in Sources */,
