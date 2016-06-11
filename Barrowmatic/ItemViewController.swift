@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ItemViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TimeFrameViewControllerDelegate {
 
     @IBOutlet weak var TXT_Title: UITextField!
     @IBOutlet weak var IMG_Item: UIImageView!
@@ -19,17 +19,21 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
     @IBOutlet weak var TXT_Person: UITextField!
     
     var detailItem: BarrowItem?
-    var managedObjectContext = CoreDataHelper.ManagedObjectContext()
+    var managedObjectContext = CoreDataHelper.instance.ManagedObjectContext()
     
+    //Image
     var itemImageSelected : Bool = false
     var personImageSelected:Bool = false
+    
+    var imageTypeSelector : ImageType = .item
     enum ImageType : String {
         case item
         case person
     }
-    var pictureTypeSelector : ImageType = .item
     
-    
+    //Date Range
+    var startDate : NSDate?
+    var endDate : NSDate?
     
     
     func configureView()
@@ -54,10 +58,11 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
         
         
         //Inside a table view we have to create the TapGesture from the code-behind
-        let itemTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.AddImageForItem))
-        let personTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.AddImageForPerson))
+        let itemTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.IMG_Item_Tapped))
+        let personTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.IMG_Person_Tapped))
         self.IMG_Item.addGestureRecognizer(itemTapGesture)
         self.IMG_Person.addGestureRecognizer(personTapGesture)
+        
         
         self.configureView()
     }
@@ -65,10 +70,9 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
 
     @IBAction func BTN_Save_Tapped (sender: UIBarButtonItem)
     {
-        if detailItem == nil
+        if detailItem == nil //INSERT
         {
-            //INSERT
-            let newItem = CoreDataHelper.InsertManagedObject(NSStringFromClass(BarrowItem), managedObjectContext: self.managedObjectContext) as! BarrowItem
+            let newItem = CoreDataHelper.instance.InsertManagedObject(NSStringFromClass(BarrowItem), managedObjectContext: self.managedObjectContext) as! BarrowItem
             
             newItem.title = self.TXT_Title.text
             
@@ -78,32 +82,32 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
                 newItem.image = UIImageJPEGRepresentation(itemImage, 0.3)
             }
             
-            
             //Image for Person
-            if let personImage = self.IMG_Person.image
-            {
-                
-            }
+            
+            //Date Range
+            newItem.startDate = self.startDate
+            newItem.endDate = self.endDate
             
         }
-        else
+        else //UPDATE
         {
-            //UPDATE
+            
         }
         
-        CoreDataHelper.SaveManagedObjectContext(self.managedObjectContext)
+        CoreDataHelper.instance.SaveManagedObjectContext(self.managedObjectContext)
         
     }
     
-    func AddImageForItem ()
+    //IMAGE Functions
+    func IMG_Item_Tapped ()
     {
-        self.pictureTypeSelector = .item
+        self.imageTypeSelector = .item
         self.AddImage()
         
     }
-    func AddImageForPerson ()
+    func IMG_Person_Tapped ()
     {
-        self.pictureTypeSelector = .person
+        self.imageTypeSelector = .person
         self.AddImage()
     }
     func AddImage()
@@ -114,41 +118,17 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
         
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
-    func ScaleImageToSize(image:UIImage, toSize:CGSize) -> UIImage
-    {
-        UIGraphicsBeginImageContextWithOptions(toSize, false, UIScreen.mainScreen().scale)
-        
-        image.drawInRect(CGRectMake(0, 0, toSize.width, toSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return newImage
-        
-    }
-    func ScaleImage(image : UIImage, width:CGFloat, height: CGFloat) -> UIImage
-    {
-        let oldWidth = image.size.width
-        let oldHeight = image.size.height
-        
-        let scaleFactor = (oldWidth > oldHeight) ? width / oldWidth : height / oldHeight
-        
-        let newWidth = oldWidth * scaleFactor
-        let newHeight = oldHeight * scaleFactor
-        
-        let scaledImage = self.ScaleImageToSize(image, toSize: CGSizeMake(newWidth, newHeight))
-        
-        return scaledImage
-    }
+
     
     
     //ImagePickerDelegate
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject])
+    {
         if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         {
-            let scaledImage = self.ScaleImage(selectedImage, width: 120, height: 120)
+            let scaledImage = Helper.instance.ScaleImage(selectedImage, width: 120, height: 120)
             
-            if self.pictureTypeSelector == .item
+            if self.imageTypeSelector == .item
             {
                 self.IMG_Item.image = scaledImage
                 self.itemImageSelected = true
@@ -164,10 +144,37 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
             picker.dismissViewControllerAnimated(true, completion: nil)
         }
     }
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(picker: UIImagePickerController)
+    {
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 
+    
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if segue.identifier == "SEGUE_DATERANGE"
+        {
+            let timeFrameViewController = segue.destinationViewController as? TimeframeViewController
+            timeFrameViewController?.delegate = self
+            
+        }
+    }
+    //TimeFrameViewController delegate function
+    func didSelectTimeFrame(dateRange: GLCalendarDateRange)
+    {
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        
+        self.LBL_BarrowAt.text = "Borrowed at \(dateFormatter.stringFromDate(dateRange.beginDate))"
+        self.LBL_ReturnAt.text = "Return at \(dateFormatter.stringFromDate(dateRange.endDate))"
+        
+        self.startDate = dateRange.beginDate
+        self.endDate = dateRange.endDate
+    }
+    
     
 }
 

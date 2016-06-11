@@ -108,6 +108,17 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
         {
             cell.imageView?.image = UIImage(data: itemImageData)
         }
+        
+        if let startDate = object.startDate
+        {
+            if let endDate = object.endDate
+            {
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                
+                cell.detailTextLabel?.text = "From \(dateFormatter.stringFromDate(startDate)) to \(dateFormatter.stringFromDate(endDate))"
+            }
+        }
     }
 
     
@@ -118,7 +129,7 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
             return _fetchedResultsController!
         }
         
-        let fetchRequest = NSFetchRequest(entityName: "BarrowItem")
+        let fetchRequest = NSFetchRequest(entityName: NSStringFromClass(BarrowItem))
         
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20

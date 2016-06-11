@@ -171,6 +171,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAW-jG-lEe">
                                                     <rect key="frame" x="136" y="81" width="127" height="30"/>
                                                     <state key="normal" title="Choose timeframe"/>
+                                                    <connections>
+                                                        <segue destination="ldb-5a-12d" kind="presentation" identifier="SEGUE_DATERANGE" id="dAN-P5-j19"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barrowed at:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6b-Xp-b9f">
                                                     <rect key="frame" x="136" y="23" width="456" height="21"/>
@@ -256,6 +259,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="icb-52-6Rj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="709" y="339"/>
+        </scene>
+        <!--Timeframe View Controller-->
+        <scene sceneID="J6p-ot-hzo">
+            <objects>
+                <viewController id="ldb-5a-12d" customClass="TimeframeViewController" customModule="Barrowmatic" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wgd-c9-T2N"/>
+                        <viewControllerLayoutGuide type="bottom" id="Os7-Nv-9Ew"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sqn-FK-gDI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose timeframe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrx-0C-ugH">
+                                <rect key="frame" x="230" y="54" width="141" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="NAa-7G-Vz7"/>
+                                    <constraint firstAttribute="width" constant="141" id="Q5l-TF-qg3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dma-jy-USD" customClass="GLCalendarView">
+                                <rect key="frame" x="0.0" y="83" width="600" height="517"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PG6-rl-HSw">
+                                <rect key="frame" x="543" y="50" width="37" height="30"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="BTN_Done_Tapped:" destination="ldb-5a-12d" eventType="touchUpInside" id="693-4X-elD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PG6-rl-HSw" firstAttribute="trailing" secondItem="Sqn-FK-gDI" secondAttribute="trailingMargin" id="31r-Wn-19B"/>
+                            <constraint firstItem="Os7-Nv-9Ew" firstAttribute="top" secondItem="dma-jy-USD" secondAttribute="bottom" id="4LF-Oc-uwJ"/>
+                            <constraint firstAttribute="trailing" secondItem="dma-jy-USD" secondAttribute="trailing" id="6QQ-f7-SHt"/>
+                            <constraint firstItem="Hrx-0C-ugH" firstAttribute="centerX" secondItem="Sqn-FK-gDI" secondAttribute="centerX" id="N3c-wn-B23"/>
+                            <constraint firstItem="PG6-rl-HSw" firstAttribute="top" secondItem="wgd-c9-T2N" secondAttribute="bottom" constant="30" id="T3A-jt-4Zc"/>
+                            <constraint firstItem="Hrx-0C-ugH" firstAttribute="top" secondItem="wgd-c9-T2N" secondAttribute="bottom" constant="34" id="UHZ-tT-jCL"/>
+                            <constraint firstItem="dma-jy-USD" firstAttribute="leading" secondItem="Sqn-FK-gDI" secondAttribute="leading" id="qaZ-cO-hPa"/>
+                            <constraint firstItem="dma-jy-USD" firstAttribute="top" secondItem="PG6-rl-HSw" secondAttribute="bottom" constant="3" id="xbv-2w-UVR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calendarView" destination="dma-jy-USD" id="IEg-Km-F2A"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OkS-Yp-TYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1426" y="339"/>
         </scene>
     </scenes>
     <resources>
