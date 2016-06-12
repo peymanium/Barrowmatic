@@ -8,23 +8,25 @@
 
 import UIKit
 
-class ItemViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TimeFrameViewControllerDelegate {
+class ItemViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TimeFrameViewControllerDelegate, MLPAutoCompleteTextFieldDelegate, MLPAutoCompleteTextFieldDataSource {
 
+    
     @IBOutlet weak var TXT_Title: UITextField!
     @IBOutlet weak var IMG_Item: UIImageView!
     @IBOutlet weak var LBL_BarrowAt: UILabel!
     @IBOutlet weak var LBL_ReturnAt: UILabel!
     @IBOutlet weak var BTN_Timeframe: UIButton!
     @IBOutlet weak var IMG_Person: UIImageView!
-    @IBOutlet weak var TXT_Person: UITextField!
+    @IBOutlet weak var TXT_Person: MLPAutoCompleteTextField!
+    
     
     var detailItem: BarrowItem?
     var managedObjectContext = CoreDataHelper.instance.ManagedObjectContext()
     
+    
     //Image
     var itemImageSelected : Bool = false
     var personImageSelected:Bool = false
-    
     var imageTypeSelector : ImageType = .item
     enum ImageType : String {
         case item
@@ -74,7 +76,6 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
             }
         }
     }
-
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -86,11 +87,16 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
         self.IMG_Item.addGestureRecognizer(itemTapGesture)
         self.IMG_Person.addGestureRecognizer(personTapGesture)
         
+        self.TXT_Person.autoCompleteDelegate = self
+        self.TXT_Person.autoCompleteDataSource = self
+        self.TXT_Person.autoCompleteTableAppearsAsKeyboardAccessory = true
+        self.TXT_Person.autoCompleteTableBackgroundColor = UIColor.whiteColor()
         
         self.configureView()
     }
 
-
+    
+    //SAVE Function
     @IBAction func BTN_Save_Tapped (sender: UIBarButtonItem)
     {
         if detailItem == nil //INSERT
@@ -171,6 +177,8 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
         
     }
     
+    
+    
     //IMAGE Functions
     func IMG_Item_Tapped ()
     {
@@ -247,6 +255,37 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
         self.endDate = dateRange.endDate
     }
     
+    
+    
+    //MLPAutoCompleteTextField delegate function
+    func autoCompleteTextField(textField: MLPAutoCompleteTextField!, possibleCompletionsForString string: String!) -> [AnyObject]! {
+        
+        var personName = [String]()
+        
+        let persons = CoreDataHelper.instance.FetchEntities(NSStringFromClass(Person), managedObjectContext: self.managedObjectContext, predicate: nil, sortDescriptor: nil) as! [Person]
+        for person in persons
+        {
+            if let name = person.name
+            {
+                personName.append(name)
+            }
+        }
+        
+        return personName
+        
+    }
+    func autoCompleteTextField(textField: MLPAutoCompleteTextField!, didSelectAutoCompleteString selectedString: String!, withAutoCompleteObject selectedObject: MLPAutoCompletionObject!, forRowAtIndexPath indexPath: NSIndexPath!) {
+        
+        let predicate = NSPredicate(format: "%K == %@", "name", selectedString)
+        let person = CoreDataHelper.instance.FetchEntities(NSStringFromClass(Person), managedObjectContext: self.managedObjectContext, predicate: predicate, sortDescriptor: nil).firstObject as! Person
+        
+        if let personImageData = person.image
+        {
+            self.IMG_Person.image = UIImage(data: personImageData)
+        }
+        
+        
+    }
     
 }
 

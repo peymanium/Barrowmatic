@@ -34,6 +34,8 @@
 		5DFACBA81D0C01FD004706AA /* gl-calendar-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFACBA31D0C01FD004706AA /* gl-calendar-shadow.png */; };
 		5DFACBA91D0C01FD004706AA /* gl-calendar-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFACBA41D0C01FD004706AA /* gl-calendar-shadow@2x.png */; };
 		5DFACBAA1D0C01FD004706AA /* gl-calendar-shadow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFACBA51D0C01FD004706AA /* gl-calendar-shadow@3x.png */; };
+		5DFACBB31D0DF587004706AA /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFACBAD1D0DF587004706AA /* MLPAutoCompleteTextField.m */; };
+		5DFACBB41D0DF587004706AA /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFACBB21D0DF587004706AA /* NSString+Levenshtein.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +79,13 @@
 		5DFACBA31D0C01FD004706AA /* gl-calendar-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gl-calendar-shadow.png"; sourceTree = "<group>"; };
 		5DFACBA41D0C01FD004706AA /* gl-calendar-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gl-calendar-shadow@2x.png"; sourceTree = "<group>"; };
 		5DFACBA51D0C01FD004706AA /* gl-calendar-shadow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gl-calendar-shadow@3x.png"; sourceTree = "<group>"; };
+		5DFACBAC1D0DF587004706AA /* MLPAutoCompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextField.h; sourceTree = "<group>"; };
+		5DFACBAD1D0DF587004706AA /* MLPAutoCompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPAutoCompleteTextField.m; sourceTree = "<group>"; };
+		5DFACBAE1D0DF587004706AA /* MLPAutoCompleteTextFieldDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDataSource.h; sourceTree = "<group>"; };
+		5DFACBAF1D0DF587004706AA /* MLPAutoCompleteTextFieldDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDelegate.h; sourceTree = "<group>"; };
+		5DFACBB01D0DF587004706AA /* MLPAutoCompletionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompletionObject.h; sourceTree = "<group>"; };
+		5DFACBB11D0DF587004706AA /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
+		5DFACBB21D0DF587004706AA /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +186,7 @@
 		5DFACB881D0BFDF4004706AA /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5DFACBAB1D0DF587004706AA /* MLPAutoCompleteTextField */,
 				5DFACB961D0C01D6004706AA /* Images */,
 				5DFACB8D1D0C01A3004706AA /* GLCalendarDayCell */,
 				5DFACB781D0BFDEB004706AA /* GLCalendarDateRange.h */,
@@ -214,6 +224,20 @@
 				5DFACBA51D0C01FD004706AA /* gl-calendar-shadow@3x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		5DFACBAB1D0DF587004706AA /* MLPAutoCompleteTextField */ = {
+			isa = PBXGroup;
+			children = (
+				5DFACBAC1D0DF587004706AA /* MLPAutoCompleteTextField.h */,
+				5DFACBAD1D0DF587004706AA /* MLPAutoCompleteTextField.m */,
+				5DFACBAE1D0DF587004706AA /* MLPAutoCompleteTextFieldDataSource.h */,
+				5DFACBAF1D0DF587004706AA /* MLPAutoCompleteTextFieldDelegate.h */,
+				5DFACBB01D0DF587004706AA /* MLPAutoCompletionObject.h */,
+				5DFACBB11D0DF587004706AA /* NSString+Levenshtein.h */,
+				5DFACBB21D0DF587004706AA /* NSString+Levenshtein.m */,
+			);
+			path = MLPAutoCompleteTextField;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,11 +323,13 @@
 				5DA1F6391D0AC42A0086B0DF /* Person+CoreDataProperties.m in Sources */,
 				5DA1F62C1D0ABE3C0086B0DF /* CoreDataHelper.swift in Sources */,
 				5DFACB871D0BFDEB004706AA /* GLDateUtils.m in Sources */,
+				5DFACBB41D0DF587004706AA /* NSString+Levenshtein.m in Sources */,
 				5DA1F63C1D0B45F10086B0DF /* Helper.swift in Sources */,
 				5DFACB551D0B6A64004706AA /* TimeframeViewController.swift in Sources */,
 				5DA1F6381D0AC42A0086B0DF /* BarrowItem.m in Sources */,
 				5DA1F6371D0AC42A0086B0DF /* BarrowItem+CoreDataProperties.m in Sources */,
 				5DFACB851D0BFDEB004706AA /* GLCalendarView.m in Sources */,
+				5DFACBB31D0DF587004706AA /* MLPAutoCompleteTextField.m in Sources */,
 				5DFACB931D0C01BF004706AA /* GLCalendarDayCell.m in Sources */,
 				5DA1F6111D0AB7750086B0DF /* AppDelegate.swift in Sources */,
 				5DFACB841D0BFDEB004706AA /* GLCalendarMonthCoverView.m in Sources */,
