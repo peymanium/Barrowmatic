@@ -49,6 +49,29 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
             {
                 self.IMG_Item.image = UIImage(data: itemImageData)
             }
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            if let startDate = detail.startDate
+            {
+                self.LBL_BarrowAt.text = "Barrowed at \(dateFormatter.stringFromDate(startDate))"
+            }
+            
+            if let endDate = detail.endDate
+            {
+                self.LBL_ReturnAt.text = "Return at \(dateFormatter.stringFromDate(endDate))"
+            }
+            
+            
+            if let person = detail.person as? Person
+            {
+                self.TXT_Person.text = person.name
+                
+                if let personImageData = person.image
+                {
+                    self.IMG_Person.image = UIImage(data: personImageData)
+                }
+            }
         }
     }
 
@@ -82,17 +105,67 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
                 newItem.image = UIImageJPEGRepresentation(itemImage, 0.3)
             }
             
-            //Image for Person
-            
             //Date Range
             newItem.startDate = self.startDate
             newItem.endDate = self.endDate
+            
+            
+            //PERSON
+            let fetchRequest = NSFetchRequest(entityName: NSStringFromClass(Person))
+            fetchRequest.fetchLimit = 1
+            if let name = self.TXT_Person.text
+            {
+                fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+            }
+            var error : NSError? = nil
+            let count = self.managedObjectContext.countForFetchRequest(fetchRequest, error: &error)
+            if error == nil
+            {
+                if count == 0 //New Person
+                {
+                    let newPerson = CoreDataHelper.instance.InsertManagedObject(NSStringFromClass(Person), managedObjectContext: self.managedObjectContext) as! Person
+                    
+                    newPerson.name = self.TXT_Person.text
+                    
+                    if let personImage = self.IMG_Person.image
+                    {
+                        newPerson.image = UIImageJPEGRepresentation(personImage, 0.3)
+                    }
+                    
+                    newPerson.addBarrowItemObject(newItem)
+                }
+                else //Update Person
+                {
+                    var persons = [Person]()
+                    do
+                    {
+                        persons = try self.managedObjectContext.executeFetchRequest(fetchRequest) as![Person]
+                    }
+                    catch let error as NSError
+                    {
+                        print (error.debugDescription)
+                    }
+                    
+                    //Fetch first person
+                    if let personFound = persons.first
+                    {
+                        personFound.addBarrowItemObject(newItem)
+                    }
+                }
+                
+            }
+            else
+            {
+                print (error.debugDescription)
+            }
+            
             
         }
         else //UPDATE
         {
             
         }
+        
         
         CoreDataHelper.instance.SaveManagedObjectContext(self.managedObjectContext)
         
@@ -164,7 +237,6 @@ class ItemViewController: UITableViewController, UIImagePickerControllerDelegate
     //TimeFrameViewController delegate function
     func didSelectTimeFrame(dateRange: GLCalendarDateRange)
     {
-        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         
