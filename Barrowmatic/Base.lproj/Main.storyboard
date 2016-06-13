@@ -88,6 +88,9 @@
                                 <segment title="Sort by date"/>
                                 <segment title="Sort by person"/>
                             </segments>
+                            <connections>
+                                <action selector="SEG_Sort_Changed:" destination="7bK-jq-Zjz" eventType="valueChanged" id="Mtj-dd-JYb"/>
+                            </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Eng-Ec-jel">
                             <connections>

@@ -11,9 +11,11 @@ import CoreData
 
 class OverviewViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
+    
     var itemViewController: ItemViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
 
+    var sortType = "date"
 
     override func viewDidLoad()
     {
@@ -84,7 +86,7 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
     {
-        /*if editingStyle == .Delete {
+        if editingStyle == .Delete {
             let context = self.fetchedResultsController.managedObjectContext
             context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject)
                 
@@ -96,9 +98,35 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
                 //print("Unresolved error \(error), \(error.userInfo)")
                 abort()
             }
-        }*/
+        }
     }
-
+    
+    //My tableView Function
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        if self.sortType == "date"
+        {
+            return nil
+        }
+        
+        if let sectionInfo = self.fetchedResultsController.sections?[section]
+        {
+            if let barrowItemObjects = sectionInfo.objects
+            {
+                if let barrowItem = barrowItemObjects.first as? BarrowItem
+                {
+                    if let person = barrowItem.person as? Person
+                    {
+                        return person.name
+                    }
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    
     
     func configureCell(cell: UITableViewCell, withObject object: BarrowItem)
     {
@@ -141,7 +169,9 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "Master")
+        
+        
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: "person.name", cacheName: "Master")
         aFetchedResultsController.delegate = self
         
         _fetchedResultsController = aFetchedResultsController
@@ -211,6 +241,25 @@ class OverviewViewController: UITableViewController, NSFetchedResultsControllerD
          self.tableView.reloadData()
      }
      */
+    
+    
+    @IBAction func SEG_Sort_Changed(sender: AnyObject)
+    {
+        let segmentControl = sender as! UISegmentedControl
+        
+        if segmentControl.selectedSegmentIndex == 0
+        {
+            self.sortType = "date"
+        }
+        else
+        {
+            self.sortType = "person"
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    
 
 }
 

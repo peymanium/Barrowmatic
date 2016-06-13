@@ -122,7 +122,6 @@
 				5DA1F62A1D0ABE270086B0DF /* Utilities */,
 				5DA1F6291D0ABE220086B0DF /* Controller */,
 				5DA1F6281D0ABE1E0086B0DF /* View */,
-				5DA1F6271D0ABE180086B0DF /* Model */,
 				5DA1F62D1D0AC14E0086B0DF /* CoreData */,
 				5DA1F6101D0AB7750086B0DF /* AppDelegate.swift */,
 				5DA1F61C1D0AB7750086B0DF /* Assets.xcassets */,
@@ -130,13 +129,6 @@
 				5DA1F62E1D0AC4290086B0DF /* Barrowmatic-Bridging-Header.h */,
 			);
 			path = Barrowmatic;
-			sourceTree = "<group>";
-		};
-		5DA1F6271D0ABE180086B0DF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		5DA1F6281D0ABE1E0086B0DF /* View */ = {
